@@ -85,7 +85,7 @@ void TestFlacon::testAudioFileMatcher()
             exp.endGroup();
 
             if (!QTest::qCompare(
-                        actualAudio.join(", "), expectedAudio.join(", "),
+                        actualAudio.join(", ").toLocal8Bit(), expectedAudio.join(", ").toLocal8Bit(),
                         QString("actual   %1").arg(tag).toLocal8Bit(),
                         QString("expected %1").arg(tag).toLocal8Bit(),
                         __FILE__, __LINE__)) {
