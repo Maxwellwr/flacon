@@ -75,12 +75,35 @@ void TestFlacon::testAudioFileMatcher()
             QStringList keys = exp.childKeys();
             keys.sort();
 
+            qDebug() << "**********************************";
             QStringList expectedAudio;
             for (const QString &key : keys) {
                 if (!exp.value(key).toString().isEmpty()) {
+                    qDebug() << "*  key:" << key;
+                    qDebug() << "   - QVariant:   " << exp.value(key);
+                    qDebug() << "   - toString:   " << exp.value(key).toString();
+                    qDebug() << "   - toByteArray:" << exp.value(key).toByteArray().toHex(' ');
+                    qDebug() << "   - toLocal8Bit:" << exp.value(key).toString().toLocal8Bit().toHex(' ');
+                    qDebug() << "   - toUtf8:     " << exp.value(key).toString().toUtf8().toHex(' ');
                     expectedAudio << QDir(dir).filePath(exp.value(key).toString());
                 }
             }
+
+            qDebug() << "..................................";
+            for (int i = 0; i < actualAudio.size(); ++i) {
+                qDebug() << "*  ACTUAL" << i;
+                qDebug() << "   - toString:   " << actualAudio.at(i);
+                qDebug() << "   - toLocal8Bit:" << actualAudio.at(i).toLocal8Bit().toHex(' ');
+                qDebug() << "   - toUtf8:     " << actualAudio.at(i).toUtf8().toHex(' ');
+            }
+
+            qDebug() << "..................................";
+            qDebug() << "actualAudio:" << actualAudio;
+            qDebug() << "expectedAudio:" << expectedAudio;
+            qDebug() << "actualAudio.join:" << actualAudio.join(", ");
+            qDebug() << "expectedAudio.join:" << expectedAudio.join(", ");
+
+            qDebug() << "==================================";
 
             exp.endGroup();
 
